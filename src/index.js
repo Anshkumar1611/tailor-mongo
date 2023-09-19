@@ -25,11 +25,12 @@ app.use("/public", express.static(path.join(__dirname, "uploads")));
 app.use(express.urlencoded({ extended: true }));
 
 env.config();
-
+// console.log(process.env)
 const connection_url = `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.cmgf85p.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`;
+// console.log(connection_url)
 mongoose.connect(connection_url).then(() => {
   console.log("database connected");
-})
+}).catch((error)=> console.error(error))
 
 app.use("/api", userRoutes);
 app.use("/api", adminRoutes);
