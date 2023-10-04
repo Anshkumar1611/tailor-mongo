@@ -4,18 +4,21 @@ const slugify = require("slugify");
 const Category = require("../models/Category");
 
 exports.createProduct = (req, res) => {
+  // console.log(req.user)
   req.body.createdBy = req.user._id;
 
   const { name, price, description, category, createdBy, quantity } = req.body;
   const files = req.files;
-
+  console.log(files)
+  //  console.log(productPictures)
   let productPictures = [];
 
   if (files && files.length > 0) {
     productPictures = files.map((file) => {
-      return { img: `${process.env.API}/public/${file.filename}` };
+      return { img: `${process.env.API}/public/${file.filename}`};
     });
   }
+  // console.log(productPicturesArray)
   const product = new Product({
     name,
     slug: slugify(name),
@@ -27,10 +30,12 @@ exports.createProduct = (req, res) => {
     createdBy,
   });
 
+  console.log(product)
+
   product.save((error, product) => {
     if (error) return res.status(400).json({ error });
     if (product) {
-      return res.status(201).json({ product, files: req.files });
+      return res.status(201).json({ product});
     }
   });
 };

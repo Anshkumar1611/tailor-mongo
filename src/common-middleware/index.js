@@ -7,9 +7,11 @@ const path = require("path");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
+    // cb(null, "/src/uploads");
     cb(null, path.join(path.dirname(__dirname), "uploads"));
   },
   filename: function (req, file, cb) {
+    console.log(file)
     cb(null, shortid.generate() + "-" + file.originalname);
   },
 });
@@ -55,7 +57,7 @@ exports.userMiddleware = (req,res,next)=>{
 }
 
 exports.adminMiddleware = (req,res,next)=>{
-   if(req.user.role!=='admin') return res.status(400).json({message:'Admin Access Denied'})
+   if(req.user.role!=='seller') return res.status(400).json({message:'Admin Access Denied'})
   next()
   }
 

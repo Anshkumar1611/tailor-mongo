@@ -10,7 +10,7 @@ exports.signup = (req,res) => {
         message: "Admin already exists",
       });
 
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email,username,password } = req.body;
 
     const hash_password =await bcrypt.hash(password,10)
 
@@ -20,7 +20,7 @@ exports.signup = (req,res) => {
       email,
       hash_password,
       userName: shortid.generate(),
-      role:'admin'
+      role:'seller'
     });
 
     User.create(_user,(error, data) => {
@@ -44,7 +44,7 @@ exports.signin = (req,res) => {
     if (error) return res.status(400).send(error);
     if (user) {
       const isPassword = await user.authenticate(req.body.password)
-      if (isPassword && user.role === "admin") {
+      if (isPassword && user.role === "seller") {
         const token = jwt.sign(
           { _id: user._id, role: user.role },
           process.env.JWT_SECRET,
@@ -53,7 +53,7 @@ exports.signin = (req,res) => {
           }
         );
         const { _id, firstName, lastName, email, role, fullName } = user;
-       res.cookie("token", token, { expiresIn: "24h" });
+        res.cookie("token", token, { expiresIn: "24h" });
         res.status(200).json({
           token,
           user: { _id, firstName, lastName, email, role, fullName },

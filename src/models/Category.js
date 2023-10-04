@@ -18,10 +18,10 @@ const categorySchema = new mongoose.Schema(
     parentId: {
       type: String,
     },
-    createdBy: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
+      // required: true,
       ref: "User",
-      required: true,
     },
   },
   { timestamps: true }

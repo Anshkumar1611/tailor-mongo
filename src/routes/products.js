@@ -5,7 +5,7 @@ const {upload} = require("../common-middleware/index")
 const router = express.Router();
 
 
-router.post("/product/create", requireSignin, adminMiddleware,upload.array('productPicture') ,createProduct);
+router.post("/product/create", requireSignin, adminMiddleware,upload.any('pictures') ,createProduct);
 router.get("/products/:slug", getProductsBySlug);
 router.get("/product/:productId", getProductDetailsById);
 router.delete(

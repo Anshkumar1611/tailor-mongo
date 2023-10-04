@@ -31,6 +31,7 @@ exports.createCategory = (req, res) => {
     name: req.body.name,
     slug: `${slugify(req.body.name)}-${shortid.generate()}`,
   };
+  // console.log(categoryObj)
   if (req.file) {
     categoryObj.categoryImage =
       process.env.API + "/public/" + req.file.filename;
@@ -40,6 +41,7 @@ exports.createCategory = (req, res) => {
   }
 
   const cat = new Category(categoryObj);
+  console.log(cat)
   cat.save((error, category) => {
     if (error) return res.status(400).json({ error });
     if (category) {

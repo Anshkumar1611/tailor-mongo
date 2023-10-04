@@ -15,7 +15,7 @@ const pageRoutes = require("./routes/admin/page");
 const addressRoutes = require("./routes/address");
 const orderRoutes = require("./routes/order");
 const adminOrderRoute = require("./routes/admin/order.routes");
-
+const formRoutes = require('./routes/formRoutes')
 // const corsOptions = {
 //   origin: "https://ecommerce-frontend-seven-sable.vercel.app/",
 // };
@@ -44,6 +44,7 @@ app.use("/api", pageRoutes);
 app.use("/api",addressRoutes)
 app.use("/api", orderRoutes);
 app.use("/api", adminOrderRoute);
+app.use('/api', formRoutes)
 
 app.listen(process.env.PORT,()=>{
     console.log(`Server listening on port ${process.env.PORT}`)

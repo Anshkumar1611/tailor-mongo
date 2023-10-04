@@ -37,7 +37,7 @@ email: {
   },
   role:{
     type:String,
-    enum:['user','admin'],
+    enum:['user','seller','super-admin'],
     default:'user'
   },
   contactNumber:{

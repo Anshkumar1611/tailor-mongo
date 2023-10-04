@@ -5,5 +5,4 @@ const router = express.Router();
 
 router.post("/initialdata", requireSignin, adminMiddleware, initialData);
 
-
 module.exports = router;
